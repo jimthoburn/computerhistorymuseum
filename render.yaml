@@ -2,8 +2,8 @@ services:
 - type: pserv
   name: computerhistorymuseum-mysql
   env: docker
-  plan: standard
-  region: oregon
+  plan: starter
+  region: frankfurt
   autoDeploy: false
   dockerfilePath: ./mysql/Dockerfile
   dockerContext: ./mysql
@@ -11,7 +11,7 @@ services:
     name: mysql
     mountPath: /var/lib/mysql
     # Pick a size for your disk. You can increase this size manually over time.
-    sizeGB: 10
+    sizeGB: 5
   envVars:
   - key: MYSQL_DATABASE
     value: computerhistorymuseum
@@ -24,15 +24,15 @@ services:
 - type: cron
   name: computerhistorymuseum-mysql-backup
   env: docker
-  plan: standard
-  region: oregon
+  plan: starter
+  region: frankfurt
   autoDeploy: false
   dockerfilePath: ./backups/Dockerfile
   dockerContext: ./backups
   schedule: "0 3 * * *"
   envVars:
   # Pick the region closest to your database.
-  # For example, `us-west-2` for the `oregon` region
+  # For example, `us-west-2` for the `frankfurt` region
   - key: AWS_REGION
     sync: false
   # Pick a globally unique name for your bucket.
