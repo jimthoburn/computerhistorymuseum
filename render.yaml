@@ -1,7 +1,6 @@
-# Change “myappname” throughout this file, to the name of your application.
 services:
 - type: pserv
-  name: myappname-mysql
+  name: computerhistorymuseum-mysql
   env: docker
   plan: standard
   region: oregon
@@ -15,15 +14,15 @@ services:
     sizeGB: 10
   envVars:
   - key: MYSQL_DATABASE
-    value: myappname
+    value: computerhistorymuseum
   - key: MYSQL_USER
-    value: myappname_user
+    value: computerhistorymuseum_user
   - key: MYSQL_PASSWORD
     generateValue: true
   - key: MYSQL_ROOT_PASSWORD
     generateValue: true
 - type: cron
-  name: myappname-mysql-backup
+  name: computerhistorymuseum-mysql-backup
   env: docker
   plan: standard
   region: oregon
@@ -37,7 +36,7 @@ services:
   - key: AWS_REGION
     sync: false
   # Pick a globally unique name for your bucket.
-  # For example, <my-amazon-username>-<myappname>-render-mysql-backups
+  # For example, <my-amazon-username>-computerhistorymuseum-render-mysql-backups
   - key: S3_BUCKET_NAME
     sync: false
   # Looks like "AKIAXXXXXXXXXXXXXXXX"
@@ -47,21 +46,21 @@ services:
     sync: false
   - key: MYSQL_HOST
     fromService:
-      name: myappname-mysql
+      name: computerhistorymuseum-mysql
       type: pserv
       property: host
   - key: MYSQL_DATABASE
     fromService:
-      name: myappname-mysql
+      name: computerhistorymuseum-mysql
       type: pserv
       envVarKey: MYSQL_DATABASE
   - key: MYSQL_USER
     fromService:
-      name: myappname-mysql
+      name: computerhistorymuseum-mysql
       type: pserv
       envVarKey: MYSQL_USER
   - key: MYSQL_PASSWORD
     fromService:
-      name: myappname-mysql
+      name: computerhistorymuseum-mysql
       type: pserv
       envVarKey: MYSQL_PASSWORD
